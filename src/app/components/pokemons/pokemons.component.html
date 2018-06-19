@@ -1,0 +1,46 @@
+
+    <mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let pokemon"> <img src="{{pokemon.image}}">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let pokemon"> {{pokemon.name}} </td>
+    </ng-container>
+
+     <ng-container matColumnDef="nickname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nickname </th>
+      <td mat-cell *matCellDef="let pokemon"><input type="text" [value]="pokemon.nickname" (focusout)="saveNickname(value, pokemon.id)"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+      <td mat-cell *matCellDef="let pokemon"><input type="number" [value]="pokemon.lvl" (focusout)="saveLevel(value, pokemon.id)"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="caught">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> caught </th>
+      <td mat-cell *matCellDef="let pokemon"><input type="boolean" [value]="pokemon.caught" (focusout)="saveLevel(value, pokemon.id)"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> delete </th>
+      <td mat-cell *matCellDef="let pokemon"> <button (click)= "delete(pokemon.id)">Delete Pokemon</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>
